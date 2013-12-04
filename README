@@ -1,0 +1,19 @@
+CMSC 681 Advanced Computer Networks, Fall 2013
+Assignment #3:
+Author: Anil Jangam
+------------------------------------
+
+This is README for Pastry execution:
+------------------------------------
+
+1. Compilation of the code.
+   - Change into 'Debug' directory, and issue 'make' command
+   - This will compile all the code, and generate a exe - 'pastry'
+
+2. Run the program.
+   - Compile the code as mentioned in (1) above.
+   - Issue the command 'pastry' on command line.
+
+3. Cleaning the code.
+   - Change into 'Debug' directory, and issue 'make clean' command
+   - This will clean all the object code, dependency files, and exe.
