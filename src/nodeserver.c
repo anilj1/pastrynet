@@ -33,10 +33,20 @@ void NodeServerFunction(PastryNode pNode) {
 	int bytesRecv = 0;
 	char buffer[10241];
 	char command[CMDSIZE+1];
+	char fileName[CMDSIZE+1];
 
 	strcpy(node.HostName, pNode.HostName);
 	node.NodeId = pNode.NodeId;
 	node.PortNumber = pNode.PortNumber;
+
+	// Initialize the node state.
+	PopulateFirstNodeState(&node);
+
+	// Dump the state info to log file.
+	buildLogFileName(fileName, node.NodeId);
+	printf("SERVER: Display log file is: [%s]\n", fileName);
+	removeExistingLogFile(fileName);
+	PrintNodeStateToFile(fileName, &node);
 
 	//signal(SIGCHLD, handleSig);
 	printf("SERVER: Hello World! It's me, Node Id # %d Port Number %d!\n", node.NodeId, node.PortNumber);
@@ -104,15 +114,17 @@ void NodeServerFunction(PastryNode pNode) {
 
 		buffer[bytesRecv+1] = '\0';
 		parseCommand(buffer, command, &nodeId);
-		printf("SERVER: Node to be [%s] is: %d %s \n", command, nodeId, buffer);
+		printf("SERVER: Node to be [%s] is: %d\n", command, nodeId);
 
 		if (strcmp(command, ADDNODE) == 0) {
 			printf("#### SERVER: Message received: %s at: %d %s %d\n\n", buffer, node.NodeId, node.HostName, node.PortNumber);
+			// Update the Node's state with new Node added to network.
+			UpdateNodeState(&node, nodeId);
+			PrintNodeStateToFile(fileName, &node);
 		} else if (strcmp(command, DISNODE) == 0) {
-			// Close socket and shutdown the process.
-			printf("#### SERVER: Exit Message received; Shutting down the node [%d] [%d]\n", node.NodeId, node.PortNumber);
-			close(socketHandle);
-			exit(0);
+			// Displat the node state.
+			printf("#### SERVER: Display Message received; displaying the node [%d] [%d]\n", node.NodeId, node.PortNumber);
+			PrintNodeState(&node);
 		} else if (strcmp(command, DELNODE) == 0) {
 			// Close socket and shutdown the process.
 			printf("#### SERVER: Exit Message received; Shutting down the node [%d] [%d]\n", node.NodeId, node.PortNumber);

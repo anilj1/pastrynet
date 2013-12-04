@@ -15,6 +15,7 @@ static int portNumber = 52000;
 #define ADDNODE "ADDN"
 #define DISNODE "DISP"
 #define DELNODE "DELT"
+#define PRNNODE "PRNT"
 
 #define PS_NODES 100
 #define MAX_HOPS 10
@@ -29,9 +30,12 @@ void convertToStr(char*, int nodeId);
 int fileExist (char *filename);
 int getNextPortNum();
 int GetOpt();
-void buildAddNodeCommand(char *str, int nodeId);
-void buildDisplayCommand(char* str, int nodeId);
-void buildDeleteCommand(char *str, int nodeId);
-void parseCommand(char* str, char *command, int *nodeId);
+void buildPrintNodeCommand(char *str, unsigned int nodeId);
+void buildAddNodeCommand(char *str, unsigned int nodeId);
+void buildDisplayCommand(char* str, unsigned int nodeId);
+void buildDeleteCommand(char *str, unsigned int nodeId);
+void buildLogFileName(char *str, unsigned int nodeId);
+void parseCommand(char* str, char *command, unsigned int *nodeId);
+void removeExistingLogFile(char *logFile);
 
 #endif /* COMMON_H_ */

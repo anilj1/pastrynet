@@ -12,6 +12,8 @@
 
 #include "common.h"
 
+const char* LOGFILE = "PastryNodeState";
+
 int compareInt (const void *a, const void *b) {
    return ( *(int*)a - *(int*)b );
 }
@@ -46,29 +48,36 @@ int GetOpt() {
 	return option;
 }
 
+// Build print command string to be sent to Node.
+void buildPrintNodeCommand(char *str, unsigned int nodeId) {
+	memset(str, '\0', BUFSIZE);
+	sprintf(str, "%s", PRNNODE);
+	sprintf(str + 4, "%d", nodeId);
+}
+
 // Build display command string to be sent to Node.
-void buildAddNodeCommand(char *str, int nodeId) {
+void buildAddNodeCommand(char *str, unsigned int nodeId) {
 	memset(str, '\0', BUFSIZE);
 	sprintf(str, "%s", ADDNODE);
 	sprintf(str + 4, "%d", nodeId);
 }
 
 // Build display command string to be sent to Node.
-void buildDisplayCommand(char *str, int nodeId) {
+void buildDisplayCommand(char *str, unsigned int nodeId) {
 	memset(str, '\0', BUFSIZE);
 	sprintf(str, "%s", DISNODE);
 	sprintf(str + 4, "%d", nodeId);
 }
 
 // Build delete command string to be sent to Node.
-void buildDeleteCommand(char *str, int nodeId) {
+void buildDeleteCommand(char *str, unsigned int nodeId) {
 	memset(str, '\0', BUFSIZE);
 	sprintf(str, "%s", DELNODE);
 	sprintf(str + 4, "%d", nodeId);
 }
 
 // Parse the command to be executed.
-void parseCommand(char* str, char *command, int *nodeId) {
+void parseCommand(char* str, char *command, unsigned int *nodeId) {
 	char nodeIdBuf[NODEIDLEN];
 	memset(command, '\0', CMDSIZE+1);
 	memset(nodeIdBuf, '\0', NODEIDLEN);
@@ -77,4 +86,30 @@ void parseCommand(char* str, char *command, int *nodeId) {
 	strncpy(nodeIdBuf, str+CMDSIZE, NODEIDLEN);
 
 	*nodeId = atoi(nodeIdBuf);
+}
+
+// Build delete command string to be sent to Node.
+void buildLogFileName(char *str, unsigned int nodeId) {
+	memset(str, '\0', CMDSIZE+1);
+	sprintf(str, "%s", LOGFILE);
+	sprintf(str + strlen(LOGFILE), "%s", "_");
+	sprintf(str + strlen(LOGFILE) + 1, "%d", nodeId);
+	sprintf(str + strlen(LOGFILE) + 1 + 5, "%s", ".log");
+}
+
+// Check if the log file exist, and remove it.
+void removeExistingLogFile(char *logFile) {
+
+	// Check if file exist, and remove it.
+	// It is being opened in "append" mode, each time,
+	// logs will be appended over the old log, which is
+	// not expected.
+	if (fileExist(logFile)) {
+		// Delete the existing log file.
+		if (remove(logFile) == 0) {
+			printf("File %s  deleted.\n", logFile);
+		} else {
+			fprintf(stderr, "Error deleting the file %s.\n", logFile);
+		}
+	}
 }

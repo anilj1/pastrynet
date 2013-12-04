@@ -295,7 +295,23 @@ int UpdateNeighborhoodSetNodeId(PastryNode *currNode, unsigned int newNodeId) {
 	return result;
 }
 
-int UpdateNodeState(PastryNode *newNode) {
+int UpdateNodeState(PastryNode *currNode, unsigned int newNodeId) {
+
+	int idx = 0;
+
+	// Update the leaf set for the current node
+	UpdateLeafSetNodeId(currNode, newNodeId);
+
+	// Update the routing table for the current node
+	UpdateRoutingTableNodeId(currNode, newNodeId);
+
+	// Update the neighborhood set for the current node
+	UpdateNeighborhoodSetNodeId(currNode, newNodeId);
+
+	return 0;
+}
+
+int ExchangeNodeState(PastryNode *newNode) {
 
 	int result = 0;
 	int idx = 0;
@@ -347,7 +363,7 @@ int AddPastryNode(PastryNode *node, int nodeId) {
 	} else {
 		// Network already contains other nodes.
 		// Update node routing state.
-		UpdateNodeState(node);
+		ExchangeNodeState(node);
 	}
 
 	PastryNetwork[NodeIndex] = node;
@@ -365,14 +381,7 @@ void PrintPastryNetwork() {
 	// It is being opened in "append" mode, each time,
 	// logs will be appended over the old log, which is
 	// not expected.
-	if (fileExist(logFile)) {
-		// Delete the existing log file.
-		if (remove(logFile) == 0) {
-			printf("File %s  deleted.\n", logFile);
-		} else {
-			fprintf(stderr, "Error deleting the file %s.\n", logFile);
-		}
-	}
+	removeExistingLogFile(logFile);
 
 	// Print logs to file.
 	PrintPastryNetworkToFile();

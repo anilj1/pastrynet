@@ -42,7 +42,7 @@ int main() {
 			strcpy(nNode->HostName, LOCAL_HOST);
 
 			// Update the Node state.
-			PopulateFirstNodeState(nNode);
+			//PopulateFirstNodeState(nNode);
 
 			// Add node to the Network array.
 			PastryNetwork[NodeIndex] = nNode;
@@ -73,17 +73,28 @@ int main() {
 					tNode = PastryNetwork[index];
 
 					// Connect to the Pastry node. Node should not communicate with self.
-					//if (nNode->NodeId != tNode->NodeId) {
+					if (nNode->NodeId != tNode->NodeId) {
 						printf("CLIENT: Controller communicating with node [%d] [%d].\n", tNode->NodeId, tNode->PortNumber);
 						socketHandle = Connect(*tNode);
 
-						// Build add node command and send it to node.
-						buildAddNodeCommand(cmdBuf, tNode->NodeId);
-						printf("CLIENT: Display command is: %s\n", cmdBuf);
+						// Build add node command and send it to existing node.
+						buildAddNodeCommand(cmdBuf, nNode->NodeId);
+						printf("CLIENT: Add Node command is: %s\n", cmdBuf);
 
 						SendMessage(socketHandle, cmdBuf);
 						close(socketHandle);
-					//}
+
+						// ########### EXCHANGING the Node State. #############
+						printf("CLIENT: Controller communicating with node [%d] [%d].\n", nNode->NodeId, nNode->PortNumber);
+						socketHandle = Connect(*nNode);
+
+						// Build add node command and send it to existing node.
+						buildAddNodeCommand(cmdBuf, tNode->NodeId);
+						printf("CLIENT: Add Node command is: %s\n", cmdBuf);
+
+						SendMessage(socketHandle, cmdBuf);
+						close(socketHandle);
+					}
 				}
 			}
 			break;
@@ -106,10 +117,13 @@ int main() {
 				// Build display command and send it to node.
 				buildDisplayCommand(cmdBuf, tNode->NodeId);
 				printf("CLIENT: Display command is: %s\n", cmdBuf);
-				parseCommand(cmdBuf, command, &nodeId);
-				printf("CLIENT: Node to be [%s] is: %d\n", command, nodeId);
 
-				PrintNodeState(tNode);
+				//PrintNodeState(tNode);
+				// Connect to the node. Send the node Id to the new node, and existing nodes.
+				socketHandle = Connect(*tNode);
+				SendMessage(socketHandle, cmdBuf);
+				close(socketHandle);
+
 			} else {
 				printf("CLIENT: Invalid node index provided, please try again.\n\n");
 			}
@@ -123,8 +137,6 @@ int main() {
 				// Build delete command and send it to node.
 				buildDeleteCommand(cmdBuf, tNode->NodeId);
 				printf("CLIENT: Delete command is: %s\n", cmdBuf);
-				parseCommand(cmdBuf, command, &nodeId);
-				printf("CLIENT: Node to be [%s] is: %d\n", command, nodeId);
 
 				// Connect to the node. Send the node Id to the new node, and existing nodes.
 				// This however makes the process defunct.
@@ -152,8 +164,6 @@ int main() {
 				// Build delete command and send it to node.
 				buildDeleteCommand(cmdBuf, tNode->NodeId);
 				printf("CLIENT: Delete command is: %s\n", cmdBuf);
-				parseCommand(cmdBuf, command, &nodeId);
-				printf("CLIENT: Node to be [%s] is: %d\n", command, nodeId);
 
 				// Connect to the node.
 				// Send the node Id to the new node, and existing nodes.

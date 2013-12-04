@@ -17,7 +17,8 @@ int AddPastryNode(PastryNode *node, int nodeid);
 int AddFirstNode(PastryNode *node);
 
 int PopulateFirstNodeState(PastryNode *node);
-int UpdateNodeState(PastryNode*);
+int ExchangeNodeState(PastryNode*);
+int UpdateNodeState(PastryNode*, unsigned int newNodeId);
 
 int UpdateLeafSet(PastryNode *currNode, PastryNode *newNode);
 int UpdateLeafSetNodeId(PastryNode *currNode, unsigned int newNodeId);
