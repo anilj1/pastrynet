@@ -10,10 +10,43 @@ This is README for Pastry execution:
    - Change into 'Debug' directory, and issue 'make' command
    - This will compile all the code, and generate a exe - 'pastry'
 
-2. Run the program.
+2. Cleaning the code.
+   - Change into 'Debug' directory, and issue 'make clean' command
+   - This will clean all the object code, dependency files, and exe.
+
+3. Run the program.
    - Compile the code as mentioned in (1) above.
    - Issue the command 'pastry' on command line.
 
-3. Cleaning the code.
-   - Change into 'Debug' directory, and issue 'make clean' command
-   - This will clean all the object code, dependency files, and exe.
+   - There are 5 command options where user can chose from.
+	1. Add New Node
+	2. Display Nodes
+	3. Dump Node data
+	4. Delete Node
+	5. Exit
+
+   - Description of each option is given below. 
+
+	1. Adds a new node to the network, and updates its Node state.
+           Also prints the node state to a log file. The log file is
+           node specific, and shows the history of all updates.
+
+        2. Displays the existing nodes in the network and their index. 
+
+	3. Prints the latest node state to the console. It does not shows 
+	   any history. Please check the log file for the history of updates
+
+	4. Deletes the node from network. There are couple of known issues
+	   - Process becomes defunc, as parent process is still running. 
+	   - Node states are not updated as node is getting deleted. 
+
+	5  Shuts down all the nodes in the network, and the program.
+
+   - There could be issues in this program, as this is not a production code.
+     please do accept some surprises. In case you face problem, please 
+     restart the program. 
+   
+   - As it involves communication over socket, please give some time to port
+     become free after you terminate the program forcefully.
+
+
