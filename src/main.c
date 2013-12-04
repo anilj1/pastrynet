@@ -41,9 +41,6 @@ int main() {
 			nNode->PortNumber = getNextPortNum();
 			strcpy(nNode->HostName, LOCAL_HOST);
 
-			// Update the Node state.
-			//PopulateFirstNodeState(nNode);
-
 			// Add node to the Network array.
 			PastryNetwork[NodeIndex] = nNode;
 			NodeIndex++;
@@ -111,7 +108,7 @@ int main() {
 		case 3:
 			printf("CLIENT: Enter the nodeId to be Displayed: ");
 			scanf("%d", &nodeId);
-			if (nodeId <= NodeIndex) {
+			if (nodeId < NodeIndex) {
 				tNode = PastryNetwork[nodeId];
 
 				// Build display command and send it to node.
@@ -131,7 +128,7 @@ int main() {
 		case 4:
 			printf("CLIENT: Enter the nodeId to be deleted: ");
 			scanf("%d", &nodeId);
-			if (nodeId <= NodeIndex) {
+			if (nodeId < NodeIndex) {
 				tNode = PastryNetwork[nodeId];
 
 				// Build delete command and send it to node.
