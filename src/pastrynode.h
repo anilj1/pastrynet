@@ -131,7 +131,7 @@ int GetNeighbor4(PastryNode *node);
 // Print the node
 void ResetNodeState(PastryNode *node);
 void PrintNodeState(PastryNode *node);
-void PrintNodeStateToFile(char *file, PastryNode *node);
+void PrintNodeStateToFile(char *file, PastryNode *node, int insertionCount);
 int GetHopDistance(unsigned int node1, unsigned int node2);
 
 #endif /* PASTRYNODE_H_ */

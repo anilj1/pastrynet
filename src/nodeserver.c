@@ -23,6 +23,8 @@
 #include "common.h"
 #include "pastrynetwork.h"
 
+static int insertionCount = 0;
+
 void NodeServerFunction(PastryNode pNode) {
 
 	PastryNode node;
@@ -46,7 +48,7 @@ void NodeServerFunction(PastryNode pNode) {
 	buildLogFileName(fileName, node.NodeId);
 	printf("SERVER: Display log file is: [%s]\n", fileName);
 	removeExistingLogFile(fileName);
-	PrintNodeStateToFile(fileName, &node);
+	PrintNodeStateToFile(fileName, &node, insertionCount++);
 
 	//signal(SIGCHLD, handleSig);
 	printf("SERVER: Hello World! It's me, Node Id # %d Port Number %d!\n", node.NodeId, node.PortNumber);
@@ -120,7 +122,7 @@ void NodeServerFunction(PastryNode pNode) {
 			printf("#### SERVER: Message received: %s at: %d %s %d\n\n", buffer, node.NodeId, node.HostName, node.PortNumber);
 			// Update the Node's state with new Node added to network.
 			UpdateNodeState(&node, nodeId);
-			PrintNodeStateToFile(fileName, &node);
+			PrintNodeStateToFile(fileName, &node, insertionCount++);
 		} else if (strcmp(command, DISNODE) == 0) {
 			// Displat the node state.
 			printf("#### SERVER: Display Message received; displaying the node [%d] [%d]\n", node.NodeId, node.PortNumber);

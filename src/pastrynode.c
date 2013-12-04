@@ -338,12 +338,18 @@ void PrintNodeState(PastryNode *node) {
 	printf("\n");
 }
 
-void PrintNodeStateToFile(char *file, PastryNode *node) {
+void PrintNodeStateToFile(char *file, PastryNode *node, int insertionCount) {
 
 	FILE *logFile = fopen(file, "a");
 	if (logFile == NULL) {
 		printf("Error! Could not open file: %s\n", file);
 		return;
+	}
+
+	if (insertionCount == 0) {
+		fprintf(logFile, "%s\n", "Initial Node Insertion");
+	} else {
+		fprintf(logFile, "After [%d] Insertion\n", insertionCount);
 	}
 
 	fprintf(logFile, "%s\n", "-------------------------------------------");

@@ -394,7 +394,7 @@ void PrintPastryNetwork() {
 	for (i = 0; i < NodeIndex; i++) {
 		node = PastryNetwork[i];
 		PrintNodeState(node);
-		PrintNodeStateToFile(logFile, node);
+		PrintNodeStateToFile(logFile, node, 0);
 	}
 }
 
