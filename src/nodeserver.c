@@ -103,7 +103,7 @@ void NodeServerFunction(PastryNode pNode) {
 		}
 
 		buffer[bytesRecv+1] = '\0';
-		parseCommand(buffer, command, nodeId);
+		parseCommand(buffer, command, &nodeId);
 		printf("SERVER: Node to be [%s] is: %d %s \n", command, nodeId, buffer);
 
 		if (strcmp(command, ADDNODE) == 0) {

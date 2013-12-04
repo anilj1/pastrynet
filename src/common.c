@@ -47,34 +47,34 @@ int GetOpt() {
 }
 
 // Build display command string to be sent to Node.
-void buildAddNodeCommand(char *str, unsigned int nodeId) {
+void buildAddNodeCommand(char *str, int nodeId) {
 	memset(str, '\0', BUFSIZE);
 	sprintf(str, "%s", ADDNODE);
 	sprintf(str + 4, "%d", nodeId);
 }
 
 // Build display command string to be sent to Node.
-void buildDisplayCommand(char *str, unsigned int nodeId) {
+void buildDisplayCommand(char *str, int nodeId) {
 	memset(str, '\0', BUFSIZE);
 	sprintf(str, "%s", DISNODE);
 	sprintf(str + 4, "%d", nodeId);
 }
 
 // Build delete command string to be sent to Node.
-void buildDeleteCommand(char *str, unsigned int nodeId) {
+void buildDeleteCommand(char *str, int nodeId) {
 	memset(str, '\0', BUFSIZE);
 	sprintf(str, "%s", DELNODE);
 	sprintf(str + 4, "%d", nodeId);
 }
 
 // Parse the command to be executed.
-void parseCommand(char* str, char *command, unsigned int nodeId) {
-	char nodeIdbuf[NODEIDLEN];
-	memset(nodeIdbuf, '\0', NODEIDLEN);
+void parseCommand(char* str, char *command, int *nodeId) {
+	char nodeIdBuf[NODEIDLEN];
 	memset(command, '\0', CMDSIZE+1);
+	memset(nodeIdBuf, '\0', NODEIDLEN);
 
 	strncpy(command, str, CMDSIZE);
-	strncpy(nodeIdbuf, str+CMDSIZE, NODEIDLEN);
+	strncpy(nodeIdBuf, str+CMDSIZE, NODEIDLEN);
 
-	nodeId = atoi(nodeIdbuf);
+	*nodeId = atoi(nodeIdBuf);
 }

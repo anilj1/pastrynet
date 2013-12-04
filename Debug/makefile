@@ -23,19 +23,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: pastry
+all: pastrynet
 
 # Tool invocations
-pastry: $(OBJS) $(USER_OBJS)
+pastrynet: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc  -o "pastry" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "pastrynet" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) pastry
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) pastrynet
 	-@echo ' '
 
 .PHONY: all clean dependents

@@ -73,7 +73,7 @@ int main() {
 					tNode = PastryNetwork[index];
 
 					// Connect to the Pastry node. Node should not communicate with self.
-					if (nNode->NodeId != tNode->NodeId) {
+					//if (nNode->NodeId != tNode->NodeId) {
 						printf("CLIENT: Controller communicating with node [%d] [%d].\n", tNode->NodeId, tNode->PortNumber);
 						socketHandle = Connect(*tNode);
 
@@ -83,7 +83,7 @@ int main() {
 
 						SendMessage(socketHandle, cmdBuf);
 						close(socketHandle);
-					}
+					//}
 				}
 			}
 			break;
@@ -106,7 +106,7 @@ int main() {
 				// Build display command and send it to node.
 				buildDisplayCommand(cmdBuf, tNode->NodeId);
 				printf("CLIENT: Display command is: %s\n", cmdBuf);
-				parseCommand(cmdBuf, command, nodeId);
+				parseCommand(cmdBuf, command, &nodeId);
 				printf("CLIENT: Node to be [%s] is: %d\n", command, nodeId);
 
 				PrintNodeState(tNode);
@@ -123,6 +123,8 @@ int main() {
 				// Build delete command and send it to node.
 				buildDeleteCommand(cmdBuf, tNode->NodeId);
 				printf("CLIENT: Delete command is: %s\n", cmdBuf);
+				parseCommand(cmdBuf, command, &nodeId);
+				printf("CLIENT: Node to be [%s] is: %d\n", command, nodeId);
 
 				// Connect to the node. Send the node Id to the new node, and existing nodes.
 				// This however makes the process defunct.
@@ -150,6 +152,8 @@ int main() {
 				// Build delete command and send it to node.
 				buildDeleteCommand(cmdBuf, tNode->NodeId);
 				printf("CLIENT: Delete command is: %s\n", cmdBuf);
+				parseCommand(cmdBuf, command, &nodeId);
+				printf("CLIENT: Node to be [%s] is: %d\n", command, nodeId);
 
 				// Connect to the node.
 				// Send the node Id to the new node, and existing nodes.
