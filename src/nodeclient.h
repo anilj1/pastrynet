@@ -2,7 +2,7 @@
  * nodeclient.h
  *
  *  Created on: Dec 3, 2013
- *      Author: Anil Jangam
+ *      Author: Anil Jangam, Shilpa Kokre, Kimberly White
  */
 
 #ifndef NODECLIENT_H_

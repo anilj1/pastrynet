@@ -2,7 +2,7 @@
  * common.h
  *
  *  Created on: Nov 21, 2013
- *      Author: Anil Jangam
+ *      Author: Anil Jangam, Shilpa Kokre, Kimberly White
  */
 
 #ifndef COMMON_H_

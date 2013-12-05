@@ -1,10 +1,10 @@
 CMSC 681 Advanced Computer Networks, Fall 2013
 Assignment #3:
-Author: Anil Jangam
-------------------------------------
+Author: Anil Jangam, Shilpa Kokre, Kimberly White
+--------------------------------------------------------
 
 This is README for Pastry execution:
-------------------------------------
+--------------------------------------------------------
 
 1. Compilation of the code.
    - Change into 'Debug' directory, and issue 'make' command
@@ -47,6 +47,6 @@ This is README for Pastry execution:
      restart the program. 
    
    - As it involves communication over socket, please give some time to port
-     become free after you terminate the program forcefully.
+     become free after you terminate the program forcefully and otherwise.
 
 

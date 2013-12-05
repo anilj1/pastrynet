@@ -2,7 +2,7 @@
  * common.c
  *
  *  Created on: Nov 27, 2013
- *      Author: Anil Jangam
+ *      Author: Anil Jangam, Shilpa Kokre, Kimberly White
  */
 
 #include <stdio.h>

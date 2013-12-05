@@ -2,7 +2,7 @@
  * node.c
  *
  *  Created on: Dec 1, 2013
- *      Author: Anil Jangam
+ *      Author: Anil Jangam, Shilpa Kokre, Kimberly White
  */
 
 #include <stdio.h>
